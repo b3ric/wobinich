@@ -13,7 +13,13 @@ import (
 func main() {
 
 	consensus := externalip.DefaultConsensus(nil, nil)
-	consensus.UseIPProtocol(4)
+	// todo : allow proto v
+	err := consensus.UseIPProtocol(7)
+
+	if err != nil {
+		fmt.Println("Protocol not supported, defaulting to ipv4...")
+	}
+
 	ipAddress, err := consensus.ExternalIP()
 
 	if err == nil {
