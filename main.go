@@ -3,28 +3,24 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	c "internal/consensus"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"strings"
-
-	externalip "github.com/glendc/go-external-ip"
 )
 
 func main() {
 
-	consensus := externalip.DefaultConsensus(nil, nil)
-	// todo : allow proto v
-	err := consensus.UseIPProtocol(7)
-
-	if err != nil {
-		fmt.Println("Protocol not supported, defaulting to ipv4...")
+	if os.Args[1] == "" {
+		fmt.Println("Usage: go run main.go -<proto>")
+		os.Exit()
 	}
 
-	ipAddress, err := consensus.ExternalIP()
+	proto := os.Args[1]
 
-	if err == nil {
-		fmt.Println("Your external IP: " + ipAddress.String())
-	}
+	// protv,
+	c.MyIp()
 
 	url := "https://ipinfo.io/" + ipAddress.String() + "/json"
 
