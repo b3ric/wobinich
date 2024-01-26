@@ -2,15 +2,15 @@ package consensus
 
 import (
 	"fmt"
+	"net"
 
 	externalip "github.com/glendc/go-external-ip"
 )
 
-func MyIp() {
+func MyIp(proto int) (net.IP, error) {
 
 	consensus := externalip.DefaultConsensus(nil, nil)
-	// todo : allow proto v
-	err := consensus.UseIPProtocol(7)
+	err := consensus.UseIPProtocol(uint(proto))
 
 	if err != nil {
 		fmt.Println("Protocol not supported, defaulting to ipv4...")
@@ -19,7 +19,8 @@ func MyIp() {
 	ipAddress, err := consensus.ExternalIP()
 
 	if err == nil {
-		fmt.Println("Your external IP: " + ipAddress.String())
+		return ipAddress, nil
 	}
 
+	return nil, err
 }
