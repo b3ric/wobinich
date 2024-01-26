@@ -14,7 +14,7 @@ import (
 
 func main() {
 
-	if os.Args[1] == "" {
+	if len(os.Args) < 2 {
 		fmt.Println("Usage: go run main.go <proto>")
 		os.Exit(1)
 	}
