@@ -14,12 +14,19 @@ import (
 
 func main() {
 
+	proto := 0
+
 	if len(os.Args) < 2 {
-		fmt.Println("Usage: go run main.go <proto>")
+		fmt.Println("WARN: usage: wobinich <proto>")
+		fmt.Println("WARN: defaulting to ipv4")
+		fmt.Println("\\_/\\_/\\_/\\_/\\_/\\_/\n")
+		proto = 4
+	} else if len(os.Args) == 2 {
+		proto = parseProto()
+	} else {
+		fmt.Println("usage: wobinich <proto>")
 		os.Exit(1)
 	}
-
-	proto := parseProto()
 
 	ipAddress, err := consensus.MyIp(proto)
 
@@ -48,7 +55,9 @@ func main() {
 	}
 
 	for key, value := range data {
-		fmt.Println(key + ": " + strings.Replace(value.(string), "%!d(string=", "", 1))
+		if key != "readme" {
+			fmt.Println(key + ": " + strings.Replace(value.(string), "%!d(string=", "", 1))
+		}
 	}
 
 }

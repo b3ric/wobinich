@@ -1,4 +1,4 @@
-module whoamip
+module wobinich
 
 go 1.21.6
 
