@@ -13,13 +13,20 @@ import (
 )
 
 func main() {
+	salut := `   ___.   .__       .__       .__     
+	__  _  ______\_ |__ |__| ____ |__| ____ |  |__  
+	\ \/ \/ /  _ \| __ \|  |/    \|  |/ ___\|  |  \ 
+	 \     (  <_> ) \_\ \  |   |  \  \  \___|   Y  \
+	  \/\_/ \____/|___  /__|___|  /__|\___  >___|  /
+					  \/        \/        \/     \/
+			`
 
 	proto := 0
 
 	if len(os.Args) < 2 {
+		fmt.Printf("%v\n", salut)
 		fmt.Println("WARN: usage: wobinich <proto>")
 		fmt.Println("WARN: defaulting to ipv4")
-		fmt.Println("\\_/\\_/\\_/\\_/\\_/\\_/\n")
 		proto = 4
 	} else if len(os.Args) == 2 {
 		proto = parseProto()
@@ -29,6 +36,10 @@ func main() {
 	}
 
 	ipAddress, err := consensus.MyIp(proto)
+
+	if err != nil {
+		fmt.Println("Error fetching IP")
+	}
 
 	url := "https://ipinfo.io/" + ipAddress.String() + "/json"
 
